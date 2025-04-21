@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case-Win</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+    header {
+      background: #121212;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    header img {
+      height: 50px;
+      margin-right: 15px;
+    }
+    .hero {
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+    }
+    .cases {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin: 40px auto;
+      max-width: 1000px;
+      padding: 0 20px;
+    }
+    .case {
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .case:hover {
+      transform: translateY(-10px);
+    }
+    .case img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="rocket-logo.png" alt="Case-Win Logo" />
+    <h2>Case-Win</h2>
+  </header>
+
+  <section class="hero">
+    <h1>Выбери кейс</h1>
+  </section>
+
+  <section class="cases">
+    <div class="case" onclick="location.href='open.html?case=red'">
+      <img src="https://via.placeholder.com/200x120/ff3c3c/ffffff?text=Red+Case" />
+      <div>Red Case</div>
+    </div>
+    <div class="case" onclick="location.href='open.html?case=blue'">
+      <img src="https://via.placeholder.com/200x120/3399ff/ffffff?text=Blue+Case" />
+      <div>Blue Case</div>
+    </div>
+    <div class="case" onclick="location.href='open.html?case=green'">
+      <img src="https://via.placeholder.com/200x120/66cc66/ffffff?text=Green+Case" />
+      <div>Green Case</div>
+    </div>
+  </section>
+</body>
+</html>

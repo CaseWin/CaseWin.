@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Открытие кейса</title>
+  <style>
+    body {
+      background: #0e0e0e;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .roller {
+      margin: 30px auto;
+      overflow: hidden;
+      width: 300px;
+      height: 100px;
+      border: 2px solid #333;
+      border-radius: 10px;
+      position: relative;
+      background: #1a1a1a;
+    }
+    .items {
+      display: flex;
+      animation: roll 3s ease-out forwards;
+    }
+    .item {
+      width: 100px;
+      flex-shrink: 0;
+      text-align: center;
+      padding: 10px;
+    }
+    .item img {
+      width: 80px;
+      border-radius: 5px;
+    }
+    @keyframes roll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-400px); }
+    }
+    .result {
+      font-size: 1.5em;
+      margin-top: 40px;
+      color: #ffd700;
+    }
+    .btn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #ff3c3c;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Открываем кейс...</h1>
+  <div class="roller">
+    <div class="items" id="items">
+      <div class="item"><img src="https://via.placeholder.com/80/ff4444/fff?text=AK" /><div>AK-47</div></div>
+      <div class="item"><img src="https://via.placeholder.com/80/4444ff/fff?text=AWP" /><div>AWP</div></div>
+      <div class="item"><img src="https://via.placeholder.com/80/44ff44/fff?text=M4" /><div>M4A4</div></div>
+      <div class="item"><img src="https://via.placeholder.com/80/ffaa00/fff?text=USP" /><div>USP-S</div></div>
+      <div class="item"><img src="https://via.placeholder.com/80/cc00cc/fff?text=Glock" /><div>Glock</div></div>
+    </div>
+  </div>
+
+  <div class="result" id="result">Выпадает...</div>
+  <button class="btn" onclick="window.location.href='index.html'">Назад к кейсам</button>
+
+  <script>
+    setTimeout(() => {
+      const drops = ['AK-47 | Redline', 'AWP | Dragon Lore', 'M4A4 | Howl', 'USP-S | Cyrex', 'Glock-18 | Water Elemental'];
+      const drop = drops[Math.floor(Math.random() * drops.length)];
+      document.getElementById('result').textContent = 'Вы выиграли: ' + drop;
+    }, 3200);
+  </script>
+</body>
+</html>

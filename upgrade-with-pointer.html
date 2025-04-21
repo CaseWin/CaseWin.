@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Апгрейд скина</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    canvas {
+      background: #222;
+      border: 4px solid #666;
+      border-radius: 50%;
+      margin-top: 20px;
+    }
+    .btn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #28a745;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .result {
+      font-size: 1.5em;
+      margin-top: 30px;
+    }
+    .chance {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: #0af;
+    }
+    .arrow {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 30px solid limegreen;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Апгрейд: AK-47 | Redline → AWP | Asiimov</h1>
+  <div class="chance">Шанс успеха: 40%</div>
+  <div class="arrow"></div>
+  <canvas id="wheel" width="300" height="300"></canvas>
+  <div class="result" id="result"></div>
+  <button class="btn" onclick="spinWheel()">Проверить удачу</button>
+
+  <script>
+    const canvas = document.getElementById("wheel");
+    const ctx = canvas.getContext("2d");
+    const size = canvas.width;
+    const center = size / 2;
+    const chance = 40; // шанс выигрыша в процентах
+    const winningAngle = (chance / 100) * 360;
+
+    function drawWheel(highlightAngle = 0) {
+      ctx.clearRect(0, 0, size, size);
+      const totalSegments = 36;
+      const segmentAngle = 360 / totalSegments;
+
+      for (let i = 0; i < totalSegments; i++) {
+        const startAngle = (i * segmentAngle) * Math.PI / 180;
+        const endAngle = ((i + 1) * segmentAngle) * Math.PI / 180;
+        ctx.beginPath();
+        ctx.moveTo(center, center);
+        ctx.arc(center, center, center, startAngle, endAngle);
+        ctx.fillStyle = (i * segmentAngle <= winningAngle) ? "#0af" : "#555";
+        ctx.fill();
+        ctx.strokeStyle = "#111";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    }
+
+    drawWheel();
+
+    function spinWheel() {
+      const resultDiv = document.getElementById("result");
+      resultDiv.textContent = "Крутим...";
+      let angle = 0;
+      const duration = 3000;
+      const targetAngle = Math.floor(Math.random() * 360);
+      const startTime = performance.now();
+
+      function animate(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        angle = progress * (720 + targetAngle);
+        const rotation = (angle * Math.PI) / 180;
+        ctx.save();
+        ctx.translate(center, center);
+        ctx.rotate(rotation);
+        ctx.translate(-center, -center);
+        drawWheel();
+        ctx.restore();
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          const finalAngle = (angle % 360);
+          if (finalAngle <= winningAngle) {
+            resultDiv.textContent = "Апгрейд успешен!";
+            resultDiv.style.color = "#0f0";
+          } else {
+            resultDiv.textContent = "Апгрейд неудачен. Скин утерян.";
+            resultDiv.style.color = "#f00";
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+  </script>
+</body>
+</html>
